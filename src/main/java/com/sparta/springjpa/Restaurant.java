@@ -6,11 +6,16 @@ import com.sparta.springjpa.entity.Orders;
 import com.sparta.springjpa.repository.FoodRepository;
 import com.sparta.springjpa.repository.MemberRepository;
 import com.sparta.springjpa.repository.OrdersRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Component
+@RequiredArgsConstructor
 
 public class Restaurant implements ApplicationRunner {
     private final FoodRepository foodRepository;
@@ -62,7 +67,7 @@ public class Restaurant implements ApplicationRunner {
         System.out.println("===========================================================");
         int num = 1;
         System.out.println("Orders 데이터");
-        List<Orders> ordersList = ordersRepository.findAll();
+        List<Orders> orderList = ordersRepository.findAll();
 
         for (Orders orders : ordersList) {
             System.out.println(num);
@@ -72,9 +77,8 @@ public class Restaurant implements ApplicationRunner {
         }
         System.out.println("===========================================================");
         System.out.println("삼식이 주문한 음식");
-        Member samsik = memberRepository.findAllById(1L).orElseThrow(
-                0->new RuntimeException("없음");
-        )
+        Member samsik = memberRepository.findById(1L).orElseThrow(()->new RuntimeException("없음"));
+
 
         num = 1;
         for (Orders orders : samsik.getOrders()) {
@@ -86,13 +90,12 @@ public class Restaurant implements ApplicationRunner {
         System.out.println("===========================================================");
 
         System.out.println("아보카도피자 주문한 사람");
-        Food abocado = foodRepository.findById(5L).orElse(Throw)
-        0->new RuntimeException("없음");
-    }
-    for(
-    Orders orders :abocado.getOrders())
+        Food abocado = foodRepository.findById(5L).orElseThrow(() -> new RuntimeException("없음"));
 
-    {
-        System.out.println("주문한 사람 = " + orders.getMember().getMemberName());
+
+        for (Orders order : abocado.getOrders()) {
+            System.out.println("주문한 사람 = " + order.getMember().getMemberName());
+        }
     }
 }
+
