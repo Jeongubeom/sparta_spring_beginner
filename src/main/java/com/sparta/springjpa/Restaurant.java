@@ -26,16 +26,28 @@ public class Restaurant implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         List<Food> foods = new ArrayList<>();
         Food food1 = new Food("후라이드", 10000);
+        foods.add(food1);
+
         Food food2 = new Food("양념치킨", 11000);
+        foods.add(food2);
+
         Food food3 = new Food("반반치킨", 13000);
+        foods.add(food3);
+
         Food food4 = new Food("고구마피자", 9000);
+        foods.add(food4);
+
         Food food5 = new Food("아보카도피자", 110000);
         foods.add(food5);
         foodRepository.saveAll(foods);
 
         List<Member> members = new ArrayList<>();
         Member member1 = new Member("삼식이");
+        members.add(member1);
+
+
         Member member2 = new Member("먹깨비");
+        members.add(member2);
         memberRepository.saveAll(members);
 
         System.out.println("================================================");
@@ -43,7 +55,7 @@ public class Restaurant implements ApplicationRunner {
         System.out.println("Member 데이터");
         List<Member> findMembers = memberRepository.findAll();
         for (Member findMember : findMembers) {
-            System.out.println("fingMember = " + findMember.getMemberName());
+            System.out.println("findMember = " + findMember.getMemberName());
         }
         System.out.println("================================================");
 
@@ -54,15 +66,31 @@ public class Restaurant implements ApplicationRunner {
         }
         List<Orders> ordersList = new ArrayList<>();
         Orders order1 = new Orders(findFoods.get(0), findMembers.get(0));
+        ordersList.add(order1);
+
         Orders order2 = new Orders(findFoods.get(3), findMembers.get(1));
+        ordersList.add(order2);
+
         Orders order3 = new Orders(findFoods.get(4), findMembers.get(1));
+        ordersList.add(order3);
+
         Orders order4 = new Orders(findFoods.get(2), findMembers.get(0));
+        ordersList.add(order4);
+
         Orders order5 = new Orders(findFoods.get(2), findMembers.get(0));
+        ordersList.add(order5);
+
         Orders order6 = new Orders(findFoods.get(1), findMembers.get(0));
+        ordersList.add(order6);
+
         Orders order7 = new Orders(findFoods.get(1), findMembers.get(0));
+        ordersList.add(order7);
+
         Orders order8 = new Orders(findFoods.get(3), findMembers.get(0));
         ordersList.add(order8);
         ordersRepository.saveAll(ordersList);
+
+
 
         System.out.println("===========================================================");
         int num = 1;
@@ -84,7 +112,7 @@ public class Restaurant implements ApplicationRunner {
         for (Orders orders : samsik.getOrders()) {
             System.out.println(num);
             System.out.println("주문한 음식 = " + orders.getFood().getFoodName());
-            System.out.println("주문한 음식 가격 = " + orders.getFood().getFoodName());
+            System.out.println("주문한 음식 가격 = " + orders.getFood().getPrice());
             num++;
         }
         System.out.println("===========================================================");
